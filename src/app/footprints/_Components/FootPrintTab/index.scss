@@ -1,0 +1,34 @@
+.footprint-tab {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0rem;
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 6rem;
+  }
+
+  &__underline {
+    background-color: var(--origin-secondary);
+    height: 0.125rem;
+    width: 100%;
+
+    &--focused {
+      background-color: var(--origin-primary);
+    }
+  }
+
+  &--normal {
+    color: var(--origin-secondary);
+  }
+
+  &--focused {
+    color: var(--origin-primary);
+  }
+}
