@@ -1,14 +1,17 @@
-import React from 'react';
+import { Dropdown } from '@/components';
+import classNames from 'classnames';
+import React, { useEffect, useState } from 'react';
 import { planType } from '../MyFootPrints/MyFootPrints';
+import './index.scss';
 
 interface FootPrintFilterProps {
-  year: number;
   setYear: (year: number) => void;
   setPlan: (plan: planType) => void;
 }
 
+const yearOptions = [{ value: 2024, name: '2024년' }];
+
 export default function FootPrintFilter({
-  year,
   setYear,
   setPlan,
 }: FootPrintFilterProps) {
@@ -20,30 +23,66 @@ export default function FootPrintFilter({
   // year-DropDown의 selectedValue 값으로 setYear() 호출
   // plan-DropDown의 selectedValue 값으로 setPlan() 호출
 
-  // 자체 state
-  // TODO: props으로 받은 year에 해당하는 모든 계획들을 return 하는 useQuery 정의하고 여기서로부터 data return
-  // 이를 plan-dropdown의 options로 넣어주기
-  // const [selectedYear, setSelectedYear] = useState(2024);
-  // const [selectedPlan, setSelectedPlan] = useState<planType>({
-  //   planId: -1,
-  //   planTitle: '모든 계획',
-  // });
+  const [selectedYear, setSelectedYear] = useState(2024);
+  const [selectedPlan, setSelectedPlan] = useState<planType>({
+    planId: -1,
+    planTitle: '모든 계획',
+  });
 
-  // TODO: useEffect로 year이 바뀔 때마다, selectedPlan의 값은 "모든 계획"으로 변경해주기
-  // useEffect(() => {
-  //   setSelectedPlan({
-  //     planId: -1,
-  //     planTitle: '모든 계획',
-  //   });
-  // }, [year]);
+  const handleSelectedPlan = (newSelectedPlanId: number) => {
+    const newSelectedPlan = planOptions.find(
+      (plan) => plan.value === newSelectedPlanId,
+    );
+    setSelectedPlan({
+      planId: newSelectedPlan!.value,
+      planTitle: newSelectedPlan!.name,
+    });
+  };
+
+  // TODO: props으로 받은 year에 해당하는 모든 계획들을 return 하는 useQuery 정의하고 여기서로부터 data return
+  // 서버로부터 현재 year에 해당하는 계획들을 받아 planDropdown에 넣어줄 planOptions 만들기
+  const planOptions = [
+    { value: -1, name: '모든 계획' },
+    { value: 52, name: '1일 1커밋하기' },
+    { value: 53, name: '매일 운동하기' },
+  ];
+
+  useEffect(() => {
+    // useEffect로 selectedYear이 바뀔 때마다, selectedPlan의 값은 "모든 계획"으로 변경해주기
+    setSelectedPlan({
+      planId: -1,
+      planTitle: '모든 계획',
+    });
+  }, [selectedYear]);
+
+  const handleClickSearchBtn = () => {
+    setYear(selectedYear);
+    setPlan(selectedPlan);
+  };
 
   return (
-    <div
-      onClick={() => {
-        setYear(year);
-        setPlan({ planId: -1, planTitle: '1' });
-      }}>
-      {year}
+    <div className={classNames('footprint-filter')}>
+      <Dropdown
+        dropdownId="year-filter"
+        options={yearOptions}
+        selectedValue={selectedYear}
+        setSelectedValue={(newSelectedYear: number) => {
+          setSelectedYear(newSelectedYear);
+        }}
+        classNameList={['footprint-filter__dropdown--year']}
+      />
+
+      <Dropdown
+        dropdownId="plan-filter"
+        options={planOptions}
+        selectedValue={selectedPlan.planId}
+        setSelectedValue={handleSelectedPlan}
+        classNameList={['footprint-filter__dropdown--filter']}
+      />
+
+      <div
+        className={classNames('footprint-filter__search-btn')}
+        onClick={handleClickSearchBtn}>{`검색`}</div>
     </div>
   );
 }

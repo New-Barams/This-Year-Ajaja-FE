@@ -18,8 +18,6 @@ export default function FootPrintTab({
   setMyFootPrintsTab,
   setAllFootPrintsTab,
 }: FootPrintTabProps) {
-  // TODO: isMyFootPrintsTab이 true => 내 발자취, false => 둘러보기 표시
-
   const handleClickMyFootPrintsTab = () => {
     if (!isMyFootPrintsTab) {
       setMyFootPrintsTab();
