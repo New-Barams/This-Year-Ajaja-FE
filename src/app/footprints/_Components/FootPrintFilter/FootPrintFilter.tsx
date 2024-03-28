@@ -1,4 +1,4 @@
-import { Dropdown } from '@/components';
+import { Dropdown, Icon } from '@/components';
 import { useGetMyPlansForFootprintQuery } from '@/hooks/apis';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -76,9 +76,11 @@ export default function FootPrintFilter({
         classNameList={['footprint-filter__dropdown--filter']}
       />
 
-      <div
+      <button
         className={classNames('footprint-filter__search-btn')}
-        onClick={handleClickSearchBtn}>{`검색`}</div>
+        onClick={handleClickSearchBtn}>
+        <Icon name={'SEARCH'} color={'white-100'} size="lg" />
+      </button>
     </div>
   );
 }
