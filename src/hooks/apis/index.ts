@@ -4,6 +4,7 @@ export { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 export { useEditRemindMutation } from '@/hooks/apis/useEditRemindMutation';
 export { useGetFeedbacksQuery } from '@/hooks/apis/useGetFeedbacksQuery';
 export { useGetMyPlansQuery } from '@/hooks/apis/useGetMyPlansQuery';
+export { useGetMyPlansForFootprintQuery } from '@/hooks/apis/useGetMyPlansForFootprintQuery';
 export { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 export { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 export { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
