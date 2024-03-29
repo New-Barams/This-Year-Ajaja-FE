@@ -24,13 +24,17 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
     border: 1px solid var(--origin-primary);
     border-radius: var(--border-radius);
     cursor: pointer;
 
     &__text {
       text-align: center;
+      width: 6rem; /* 1rem 크기로 고정된 div */
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis; 
       font-size: 1rem;
       line-height: 1rem;
     }
@@ -82,14 +86,14 @@
   }
 }
 
-.dropdown__remind-option__first{
+.dropdown__remind-option__first {
   z-index: 13;
 }
 
-.dropdown__remind-option__second{
+.dropdown__remind-option__second {
   z-index: 12;
 }
 
-.dropdown__remind-option__third{
+.dropdown__remind-option__third {
   z-index: 11;
 }
