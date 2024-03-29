@@ -1,3 +1,4 @@
+import { FOOTPRINT_PLAN } from '@/constants';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import FootPrintFilter from '../FootPrintFilter/FootPrintFilter';
@@ -11,10 +12,7 @@ export type planType = {
 
 export default function MyFootPrints() {
   const [year, setYear] = useState<number>(2024);
-  const [plan, setPlan] = useState<planType>({
-    planTitle: '모든 계획',
-    planId: -1,
-  });
+  const [plan, setPlan] = useState<planType>(FOOTPRINT_PLAN.ALL_PLAN);
 
   // Filter에서 검색 버튼을 누르면, setYear와 setPlan이 실행되어 year과 plan이 바뀌면
   // FootPrintList에 변경된 year와 plan이 전달될 것임

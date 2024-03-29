@@ -1,4 +1,5 @@
 import { Dropdown, Icon } from '@/components';
+import { FOOTPRINT_PLAN } from '@/constants';
 import { useGetMyPlansForFootprintQuery } from '@/hooks/apis';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -17,10 +18,9 @@ export default function FootPrintFilter({
   setPlan,
 }: FootPrintFilterProps) {
   const [selectedYear, setSelectedYear] = useState(2024);
-  const [selectedPlan, setSelectedPlan] = useState<planType>({
-    planId: -1,
-    planTitle: '모든 계획',
-  });
+  const [selectedPlan, setSelectedPlan] = useState<planType>(
+    FOOTPRINT_PLAN.ALL_PLAN,
+  );
 
   const handleSelectedPlan = (newSelectedPlanId: number) => {
     const newSelectedPlan = planOptions.find(
@@ -43,17 +43,18 @@ export default function FootPrintFilter({
   }, [yearPlans]);
 
   useEffect(() => {
-    // selectedYear이 바뀔 때마다, selectedPlan의 값은 "모든 계획"으로 변경해주기
-    setSelectedPlan({
-      planId: -1,
-      planTitle: '모든 계획',
-    });
+    // selectedYear이 바뀔 때마다, yearPlans의 값이 바뀔테니
+    // selectedPlan의 값은 "모든 계획"으로 변경해주기
+    setSelectedPlan(FOOTPRINT_PLAN.ALL_PLAN);
   }, [selectedYear]);
 
   const handleClickSearchBtn = () => {
     // 현재 dropdown에서 선택되어있는 year, plan 값으로 부모의 year, plan을 변경
-    setYear(selectedYear);
-    setPlan(selectedPlan);
+    if (selectedPlan.planId !== FOOTPRINT_PLAN.EMPTY.planId) {
+      // "계획 없음"이 선택되지 않았을 때만 변경 가능하도록
+      setYear(selectedYear);
+      setPlan(selectedPlan);
+    }
   };
 
   return (
