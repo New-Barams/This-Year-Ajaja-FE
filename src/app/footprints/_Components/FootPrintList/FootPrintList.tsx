@@ -12,6 +12,8 @@ export default function FootPrintList({ year, plan }: FootPrintListProps) {
   // - plan.planId === -2 => 해당 year에 해당하는 계획이 없는 것
 
   return (
-    <div>{`${year}와 ${plan.planTitle}에 해당하는 FootPrintList 출력`}</div>
+    <ul>{`${year}와 ${plan.planTitle}에 해당하는 FootPrintList 출력`}</ul>
+
+    // TODO: footPrintList.map((item)=>{return <FootPrintItem props={item. ~}/>})
   );
 }
