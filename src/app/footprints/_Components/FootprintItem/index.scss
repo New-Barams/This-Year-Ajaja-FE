@@ -1,16 +1,37 @@
+@mixin ellipsis($line) {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
 .footprint-item {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem 2rem 1.25rem 2rem;
+  width: 100%;
+  box-shadow: var(--origin-shadow);
+  text-decoration: none;
+  color: var(--origin-text-100);
 
-  &__title{
-
+  &__title {
+    @include ellipsis(1);
   }
 
-  &__createdAt{
-    
+  &__createdAt {
+    @include ellipsis(1);
+    margin-left: 0.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
-  &__tags{
-
+  &__tags {
+    @include ellipsis(2);
+    display: flex;
+    gap: 0 0.5rem;
+    height: 2.5rem;
+    flex-wrap: wrap;
   }
 }
