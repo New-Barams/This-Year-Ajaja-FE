@@ -38,7 +38,31 @@ const dummyFootPrintList: FootPrintItemType[] = [
   {
     id: 3,
     iconNumber: 1,
-    title: '발자취1',
+    title: '발자취3',
+    createdAt: '2024.04.22',
+    ajajas: 3,
+    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
+  },
+  {
+    id: 4,
+    iconNumber: 0,
+    title: '발자취4',
+    createdAt: '2024.04.22',
+    ajajas: 1,
+    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
+  },
+  {
+    id: 5,
+    iconNumber: 1,
+    title: '발자취5',
+    createdAt: '2024.04.22',
+    ajajas: 2,
+    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
+  },
+  {
+    id: 6,
+    iconNumber: 1,
+    title: '발자취6',
     createdAt: '2024.04.22',
     ajajas: 3,
     tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
@@ -51,24 +75,22 @@ export default function FootPrintList({ year, plan }: FootPrintListProps) {
   // - plan.planId === -2 => 해당 year에 해당하는 계획이 없는 것
 
   return (
-    <>
-      <ul className={classNames('footprint-list')}>
-        {dummyFootPrintList.map((item) => {
-          return (
-            <FootprintItem
-              key={item.id}
-              id={item.id}
-              iconNumber={item.iconNumber}
-              title={item.title}
-              createdAt={item.createdAt}
-              ajajas={item.ajajas}
-              tags={item.tags}
-            />
-          );
-        })}
-      </ul>
-      <div>{`${year}와 ${plan.planTitle}에 해당하는 FootPrintList 출력`}</div>
-    </>
+    <ul className={classNames('footprint-list')}>
+      {dummyFootPrintList.map((item) => {
+        return (
+          <FootprintItem
+            key={item.id}
+            id={item.id}
+            iconNumber={item.iconNumber}
+            title={item.title}
+            createdAt={item.createdAt}
+            ajajas={item.ajajas}
+            tags={item.tags}
+          />
+        );
+      })}
+      <div>{`${year}와 ${plan}에 해당하는 FootPrintList`}</div>
+    </ul>
     // TODO: `${year}와 ${plan.planTitle}에 해당하는 FootPrintList 출력`
   );
 }
