@@ -6,4 +6,5 @@ export const QUERY_KEY = {
   REMIND: 'getRemind',
   USER_INFORMATION: 'getUserInformation',
   FEEDBACKS: 'getFeedbacks',
+  MY_FOOTPRINTS: 'getMyFootPrints',
 };
