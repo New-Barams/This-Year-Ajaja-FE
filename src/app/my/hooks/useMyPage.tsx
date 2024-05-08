@@ -1,3 +1,5 @@
+'use client';
+
 import { deleteUsers } from '@/apis/client/deleteUsers';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { KAKAO_LOGOUT_URL } from '@/constants/login';
