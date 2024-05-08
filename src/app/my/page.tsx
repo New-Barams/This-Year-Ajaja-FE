@@ -5,17 +5,17 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import { getUserInformationServer } from '@apis/server/getUserInformationServer';
-import MyPageClientComponent from './MyPageClientComponent';
+import MyPageContent from './_components/MyPageContent';
 
 export default async function Page() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: [QUERY_KEY.USER_INFORMATION],
-    queryFn: () => getUserInformationServer(),
+    queryFn: getUserInformationServer,
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <MyPageClientComponent />
+      <MyPageContent />
     </HydrationBoundary>
   );
 }
