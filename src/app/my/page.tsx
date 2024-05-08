@@ -7,12 +7,12 @@ import {
 import { getUserInformationServer } from '@apis/server/getUserInformationServer';
 import MyPageClientComponent from './MyPageClientComponent';
 
-const queryClient = new QueryClient();
-queryClient.prefetchQuery({
-  queryKey: [QUERY_KEY.USER_INFORMATION],
-  queryFn: () => getUserInformationServer(),
-});
-export default function Page() {
+export default async function Page() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: [QUERY_KEY.USER_INFORMATION],
+    queryFn: () => getUserInformationServer(),
+  });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <MyPageClientComponent />
