@@ -4,12 +4,13 @@ import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { useIsLogIn } from '@/hooks/useIsLogIn';
 import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-export default function usePlanPage(planId: string) {
+export default function usePlanPage() {
   const router = useRouter();
+  const { planId } = useParams<{ planId: string }>();
   const isSeason = checkIsSeason();
   const { isLogin } = useIsLogIn();
   const [isClientSide, setIsClientSide] = useState(false);
@@ -17,7 +18,6 @@ export default function usePlanPage(planId: string) {
   const [currentURL, setCurrentURL] = useState<string>('');
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
-
   const isMyPlan = plan.writer.owner && isClientSide;
   const isSearching = !isClientSide || isPending;
   const isAccessible = isMyPlan || plan.public;
