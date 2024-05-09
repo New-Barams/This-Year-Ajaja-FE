@@ -1,5 +1,3 @@
-'use client';
-
 import { KAKAO_LOGIN_URL, UN_AUTH_URL } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,6 +24,7 @@ export default function LoginPage() {
         </div>
         <div className="login__poster">
           <Image
+            priority
             className="login__poster--image"
             src={characters}
             alt="올해도 아좌좌 캐릭터들"
