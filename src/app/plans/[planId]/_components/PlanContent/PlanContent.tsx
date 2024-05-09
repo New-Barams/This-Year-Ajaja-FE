@@ -21,7 +21,7 @@ export default function PlanContent() {
     plan,
     planId,
     isMyPlan,
-    isSearching,
+    isPending,
     isAccessible,
     isEditable,
     currentURL,
@@ -44,7 +44,7 @@ export default function PlanContent() {
           </div>
           <div className="plans-page__content">
             {(() => {
-              if (isSearching) {
+              if (isPending) {
                 return <SearchingPlan />;
               } else if (!isAccessible) {
                 return <NotPublic />;
@@ -77,7 +77,6 @@ export default function PlanContent() {
             })()}
             {isMyPlan && (
               <div className="plans-page--share">
-                <h2>공유하기</h2>
                 <TooltipButton.Main optionsPosition="top">
                   <TooltipButton.Options>
                     <label className="font-size-xs" onClick={handleCopyLink}>
@@ -96,17 +95,6 @@ export default function PlanContent() {
                     </label>
                   </TooltipButton.Trigger>
                 </TooltipButton.Main>
-                {/*TODO  기존 공유버튼 삭제 예정 */}
-                {/* <div className="plans-page--share--buttons">
-                  <label className="font-size-xs" onClick={handleCopyLink}>
-                    <Icon name="COPY" color="text-100" size="md" />
-                    링크 복사
-                  </label>
-                  <label className="font-size-xs">
-                    <KakaoShareButton linkURL={currentURL} />
-                    카카오톡
-                  </label>
-                </div> */}
               </div>
             )}
           </div>

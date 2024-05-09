@@ -1,3 +1,5 @@
+'use client';
+
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
@@ -13,19 +15,14 @@ export default function usePlanPage() {
   const { planId } = useParams<{ planId: string }>();
   const isSeason = checkIsSeason();
   const { isLogin } = useIsLogIn();
-  const [isClientSide, setIsClientSide] = useState(false);
   const { plan, isPending } = useGetPlanQuery(Number(planId), isLogin);
   const [currentURL, setCurrentURL] = useState<string>('');
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
-  const isMyPlan = plan.writer.owner && isClientSide;
-  const isSearching = !isClientSide || isPending;
+  const isMyPlan = plan.writer.owner;
+
   const isAccessible = isMyPlan || plan.public;
   const isEditable = isMyPlan && isSeason;
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') setIsClientSide(true);
-  }, []);
 
   useEffect(() => {
     const current = window.location.href;
@@ -48,7 +45,7 @@ export default function usePlanPage() {
   return {
     plan,
     planId,
-    isSearching,
+    isPending,
     isAccessible,
     isEditable,
     isMyPlan,
