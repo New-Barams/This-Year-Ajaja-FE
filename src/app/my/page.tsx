@@ -5,7 +5,7 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import { getUserInformationServer } from '@apis/server/getUserInformationServer';
-import MyPageContent from './_components/MyPageContent';
+import MyPageContent from './_components/MyPageContent/MyPageContent';
 
 export default async function Page() {
   const queryClient = new QueryClient();

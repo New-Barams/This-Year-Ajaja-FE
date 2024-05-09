@@ -8,8 +8,8 @@ import {
   Popover,
 } from '@/components';
 import Link from 'next/link';
-import useMyPage from '../hooks/useMyPage';
-import ModalRemindWay from './ModalRemindWay/ModalRemindWay';
+import useMyPage from '../../hooks/useMyPage';
+import ModalRemindWay from '../ModalRemindWay/ModalRemindWay';
 import './index.scss';
 
 export default function MyPageContent() {
