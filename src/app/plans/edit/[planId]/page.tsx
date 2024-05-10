@@ -6,9 +6,9 @@ import {
   DeletableTag,
   HelpButton,
   IconSwitchButton,
-  Modal,
   ModalSelectIcon,
   PlanInput,
+  Popover,
   TagInput,
 } from '@/components';
 import { planIcons } from '@/constants/planIcons';
@@ -22,10 +22,8 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   const {
     planId,
     nextTextAreaRef,
-    isSelectIconModalOpen,
     planContent,
     planData,
-    setIsSelectIconModalOpen,
     handleAddTag,
     handleChangeCanAjaja,
     handleChangeDescription,
@@ -48,25 +46,32 @@ export default function EditPage({ params }: { params: { planId: string } }) {
         </div>
         <div className="edit-plan-page__content">
           <div className="edit-plan-page__icon">
-            <button
-              onClick={() => {
-                setIsSelectIconModalOpen(true);
-              }}>
-              <Image
-                src={`/animal/${planIcons[planContent.iconNumber]}.png`}
-                alt={`${planIcons[planContent.iconNumber]}`}
-                width={50}
-                height={50}
-                priority
+            <Popover.Main>
+              <Popover.Trigger>
+                <Image
+                  src={`/animal/${planIcons[planContent.iconNumber]}.png`}
+                  alt={`${planIcons[planContent.iconNumber]}`}
+                  width={50}
+                  height={50}
+                  priority
+                />
+              </Popover.Trigger>
+              <Popover.Content
+                renderModalContent={(closeModal) => (
+                  <ModalSelectIcon
+                    setIconNumber={handleChangeIconNumber}
+                    closeModal={closeModal}
+                  />
+                )}
               />
-            </button>
+            </Popover.Main>
             <span className="font-size-xs">
               아이콘을 클랙해 변경할 수 있어요
             </span>
           </div>
           <div className="edit-plan-page__plan">
             <PlanInput
-              classNameList={['create-plan-content__plan--title']}
+              classNameList={['create-plan-page__plan--title']}
               editable={true}
               kind="title"
               placeholder="어떤 계획을 가지고 계신가요?"
@@ -89,7 +94,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
           </div>
 
           <div className={classNames('edit-plan-page__tag')}>
-            <div className="edit-plan-content__tag--input">
+            <div className="edit-plan-page__tag--input">
               <TagInput
                 disabled={planContent.tags.length === 5}
                 onSubmit={handleAddTag}
@@ -121,7 +126,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
             />
           </div>
           <div className="edit-plan-page__switches">
-            <div className={classNames('edit-plan-content__switches--public')}>
+            <div className={classNames('edit-plan-page__switches--public')}>
               <IconSwitchButton
                 onIconName="PLAN_OPEN"
                 offIconName="PLAN_CLOSE"
@@ -175,17 +180,6 @@ export default function EditPage({ params }: { params: { planId: string } }) {
           </Button>
         </Link>
       </div>
-
-      {isSelectIconModalOpen && (
-        <Modal>
-          <ModalSelectIcon
-            setIconNumber={handleChangeIconNumber}
-            closeModal={() => {
-              setIsSelectIconModalOpen(false);
-            }}
-          />
-        </Modal>
-      )}
     </div>
   );
 }
