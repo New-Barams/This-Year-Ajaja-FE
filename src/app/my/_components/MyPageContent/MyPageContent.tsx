@@ -7,11 +7,19 @@ import {
   ModalVerification,
   Popover,
 } from '@/components';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import useMyPage from '../../hooks/useMyPage';
 import ModalRemindWay from '../ModalRemindWay/ModalRemindWay';
 import './index.scss';
 
+const PopoverContent = dynamic(
+  () =>
+    import('@components/Popover/index').then((mod) => mod.Popover.ModalContent),
+  {
+    ssr: false,
+  },
+);
 export default function MyPageContent() {
   const {
     receiveType,
@@ -77,7 +85,7 @@ export default function MyPageContent() {
                 이메일 {emailVerified ? '변경' : '인증'}
               </Button>
             </Popover.Trigger>
-            <Popover.ModalContent
+            <PopoverContent
               renderModalContent={(onClickNo) => (
                 <ModalVerification
                   handleCloseModal={onClickNo}
@@ -111,7 +119,7 @@ export default function MyPageContent() {
                 알림 방식 변경
               </Button>
             </Popover.Trigger>
-            <Popover.ModalContent
+            <PopoverContent
               renderModalContent={(onClickNo) => (
                 <ModalRemindWay
                   isVerified={emailVerified}
@@ -138,7 +146,7 @@ export default function MyPageContent() {
                 로그아웃
               </button>
             </Popover.Trigger>
-            <Popover.ModalContent
+            <PopoverContent
               renderModalContent={(onClickNo) => (
                 <ModalBasic
                   onClickNo={onClickNo}
@@ -155,7 +163,7 @@ export default function MyPageContent() {
                 회원 탈퇴
               </button>
             </Popover.Trigger>
-            <Popover.ModalContent
+            <PopoverContent
               renderModalContent={(onClickNo) => (
                 <ModalBasic
                   onClickYes={handleWithdrawal}
