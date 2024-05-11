@@ -3,18 +3,23 @@
 import {
   Button,
   Icon,
-  KakaoShareButton,
   ModalBasic,
   Popover,
   ReadOnlyPlan,
   TooltipButton,
 } from '@/components';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import usePlanPage from '../../hooks/usePlanPage';
 import NotPublic from '../NotPublic/NotPublic';
 import SearchingPlan from '../SearchingPlan/SearchingPlan';
 import './index.scss';
+
+const KakaoShareButton = dynamic(
+  () => import('@components/KakaoShareButton/KakaoShareButton'),
+  { ssr: false },
+);
 
 export default function PlanContent() {
   const {
