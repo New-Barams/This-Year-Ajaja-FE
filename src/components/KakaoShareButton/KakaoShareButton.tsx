@@ -1,17 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './index.scss';
 
 interface KakaoShareButtonProps {}
 export default function KakaoShareButton({}: KakaoShareButtonProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const kakao = (window as any).Kakao;
-  const currentURL = window.location.href;
+  const [currentURL, setCurrentURL] = useState<string>('');
   useEffect(() => {
     kakao?.cleanup();
     kakao?.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+    setCurrentURL(window.location.href);
     return () => {
       kakao?.cleanup();
     };
