@@ -7,7 +7,7 @@ import { useIsLogIn } from '@/hooks/useIsLogIn';
 import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 export default function usePlanPage() {
@@ -16,7 +16,7 @@ export default function usePlanPage() {
   const isSeason = checkIsSeason();
   const { isLogin } = useIsLogIn();
   const { plan, isPending } = useGetPlanQuery(Number(planId), isLogin);
-  const [currentURL, setCurrentURL] = useState<string>('');
+  const currentURL = window.location.href;
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
   const isMyPlan = plan.writer.owner;
@@ -25,8 +25,6 @@ export default function usePlanPage() {
   const isEditable = isMyPlan && isSeason;
 
   useEffect(() => {
-    const current = window.location.href;
-    setCurrentURL(current);
     setIsMyPlanStore(isMyPlan);
     return () => {
       setIsMyPlanStore(false);
@@ -38,7 +36,9 @@ export default function usePlanPage() {
     router.push('/home');
   };
   const handleCopyLink = async () => {
+    if (!typeof window) return;
     await navigator.clipboard.writeText(currentURL);
+    console.log(currentURL);
     ajajaToast.success('링크가 복사되었습니다.');
   };
 
