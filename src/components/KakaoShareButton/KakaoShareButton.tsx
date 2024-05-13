@@ -4,13 +4,11 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import './index.scss';
 
-interface KakaoShareButtonProps {
-  linkURL: string;
-}
-export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
+interface KakaoShareButtonProps {}
+export default function KakaoShareButton({}: KakaoShareButtonProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const kakao = (window as any).Kakao;
-
+  const currentURL = window.location.href;
   useEffect(() => {
     kakao?.cleanup();
     kakao?.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
@@ -31,16 +29,16 @@ export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
         imageWidth: 800,
         imageHeight: 300,
         link: {
-          mobileWebUrl: linkURL,
-          webUrl: linkURL,
+          mobileWebUrl: currentURL,
+          webUrl: currentURL,
         },
       },
       buttons: [
         {
           title: '친구 계획 응원하러 가기',
           link: {
-            mobileWebUrl: linkURL,
-            webUrl: linkURL,
+            mobileWebUrl: currentURL,
+            webUrl: currentURL,
           },
         },
       ],

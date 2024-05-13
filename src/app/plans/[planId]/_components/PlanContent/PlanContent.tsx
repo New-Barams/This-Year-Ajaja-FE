@@ -29,7 +29,6 @@ export default function PlanContent() {
     isPending,
     isAccessible,
     isEditable,
-    currentURL,
     handleCopyLink,
     handleDeletePlan,
   } = usePlanPage();
@@ -88,7 +87,7 @@ export default function PlanContent() {
                     링크 복사
                   </label>
                   <label className="font-size-xs">
-                    <KakaoShareButton linkURL={currentURL} />
+                    <KakaoShareButton />
                     카카오톡
                   </label>
                 </TooltipButton.Options>

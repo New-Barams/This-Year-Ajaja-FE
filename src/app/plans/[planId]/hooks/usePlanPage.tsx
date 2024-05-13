@@ -16,11 +16,9 @@ export default function usePlanPage() {
   const isSeason = checkIsSeason();
   const { isLogin } = useIsLogIn();
   const { plan, isPending } = useGetPlanQuery(Number(planId), isLogin);
-  const currentURL = window.location.href;
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
   const isMyPlan = plan.writer.owner;
-
   const isAccessible = isMyPlan || plan.public;
   const isEditable = isMyPlan && isSeason;
 
@@ -37,8 +35,8 @@ export default function usePlanPage() {
   };
   const handleCopyLink = async () => {
     if (!typeof window) return;
+    const currentURL = window.location.href;
     await navigator.clipboard.writeText(currentURL);
-    console.log(currentURL);
     ajajaToast.success('링크가 복사되었습니다.');
   };
 
@@ -49,7 +47,6 @@ export default function usePlanPage() {
     isAccessible,
     isEditable,
     isMyPlan,
-    currentURL,
     handleCopyLink,
     handleDeletePlan,
   };
