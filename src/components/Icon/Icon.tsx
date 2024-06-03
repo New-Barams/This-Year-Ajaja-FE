@@ -41,6 +41,7 @@ const ICON_NAME_MAP = {
   ARROW_RIGHT: 'subdirectory_arrow_right',
   CANCEL: 'cancel',
   SEARCH: 'search',
+  SHARE: 'share',
 };
 
 interface IconProps {

@@ -9,7 +9,6 @@ import { ReceiveType } from '@/types/apis/users/GetUserInformation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 
 export default function useMyPage() {
   const queryClient = useQueryClient();
@@ -19,13 +18,8 @@ export default function useMyPage() {
     userInformation;
   const { changeReceiveType, isChangeReceiveTypePending } =
     usePutUserReceiveMutation();
-  const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
-  const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
-  const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
-    useState<boolean>(false);
-  const [isOpenRemindWayModal, setIsOpenRemindWayModal] =
-    useState<boolean>(false);
   const router = useRouter();
+
   const handleChangeNickName = () => {
     refreshNickname(undefined, {
       onSuccess: () => {
@@ -39,38 +33,18 @@ export default function useMyPage() {
       },
     });
   };
-  const handleGoEmailVerification = () => {
-    setIsOpenEmailModal(true);
-  };
-  const handleGORemindWay = () => {
-    setIsOpenRemindWayModal(true);
-  };
-  const handleCloseEmailVerificationModal = () => {
-    setIsOpenEmailModal(false);
-  };
-  const handleLogOut = () => {
-    setIsOpenLogOutModal(true);
-  };
 
-  const handleRealLogOut = async () => {
+  const handleLogOut = async () => {
     router.push(KAKAO_LOGOUT_URL);
   };
-  const handleCloseLogOutModal = () => {
-    setIsOpenLogOutModal(false);
-  };
   const handleWithdrawal = () => {
-    setIsOpenWithdrawalModal(true);
-  };
-  const handleRealWithdrawal = () => {
     deleteUsers().then(() => {
       deleteCookie('auth');
       router.push('/login');
       ajajaToast.success('회원탈퇴에 성공했습니다.');
     });
   };
-  const handleCloseWithdrawalModal = () => {
-    setIsOpenWithdrawalModal(false);
-  };
+
   const handleSetVerifiedEmail = () => {
     Promise.all([
       queryClient.invalidateQueries({
@@ -98,22 +72,6 @@ export default function useMyPage() {
     });
   };
 
-  const createRemindWayText = () => {
-    if (receiveType === 'both') {
-      return (
-        <>
-          <span className="color-origin-primary">이메일</span>과{' '}
-          <span className="color-origin-primary">카카오톡</span>
-        </>
-      );
-    }
-    return (
-      <span className="color-origin-primary">
-        {receiveType === 'email' ? '이메일' : '카카오톡'}
-      </span>
-    );
-  };
-  const remindWay = createRemindWayText();
   return {
     receiveType,
     nickname,
@@ -121,23 +79,10 @@ export default function useMyPage() {
     defaultEmail,
     emailVerified,
     isChangeReceiveTypePending,
-    isOpenEmailModal,
-    isOpenLogOutModal,
-    isOpenRemindWayModal,
-    isOpenWithdrawalModal,
-    handleChangeNickName,
-    handleChangeReceiveType,
-    handleCloseEmailVerificationModal,
-    handleCloseLogOutModal,
-    handleCloseWithdrawalModal,
-    handleGORemindWay,
-    handleGoEmailVerification,
-    handleLogOut,
-    handleRealLogOut,
-    handleRealWithdrawal,
     handleSetVerifiedEmail,
     handleWithdrawal,
-    remindWay,
-    setIsOpenRemindWayModal,
+    handleLogOut,
+    handleChangeNickName,
+    handleChangeReceiveType,
   };
 }

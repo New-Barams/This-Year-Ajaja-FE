@@ -12,10 +12,10 @@ export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
   const kakao = (window as any).Kakao;
 
   useEffect(() => {
-    kakao.cleanup();
-    kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+    kakao?.cleanup();
+    kakao?.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
     return () => {
-      kakao.cleanup();
+      kakao?.cleanup();
     };
   }, [kakao]);
 

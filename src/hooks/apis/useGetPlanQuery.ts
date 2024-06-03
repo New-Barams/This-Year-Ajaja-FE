@@ -3,10 +3,10 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useGetPlanQuery = (id: number, isLogin: boolean = false) => {
-  const { data, isFetching, isError } = useSuspenseQuery({
+  const { data, isFetching, isError, isPending } = useSuspenseQuery({
     queryKey: [{ planId: id }, QUERY_KEY.PLAN],
     queryFn: () => getPlan(id, isLogin),
     staleTime: Infinity,
   });
-  return { plan: data!.data, isFetching, isError };
+  return { plan: data!.data, isPending, isFetching, isError };
 };

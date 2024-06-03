@@ -1,35 +1,30 @@
-import { ReadOnlyPlan } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { useIsLogIn } from '@/hooks/useIsLogIn';
 import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import NotPublic from '../_components/NotPublic/NotPublic';
-import SearchingPlan from '../_components/SearchingPlan/SearchingPlan';
 
 export default function usePlanPage(planId: string) {
-  const { isLogin } = useIsLogIn();
   const router = useRouter();
   const isSeason = checkIsSeason();
+  const { isLogin } = useIsLogIn();
+  const [isClientSide, setIsClientSide] = useState(false);
+  const { plan, isPending } = useGetPlanQuery(Number(planId), isLogin);
   const [currentURL, setCurrentURL] = useState<string>('');
-  const { plan } = useGetPlanQuery(Number(planId), isLogin);
-  const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
-  const [isClientSide, setIsClientSide] = useState<boolean>(false);
-
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
-  const isMyPlan = plan.writer.owner;
+
+  const isMyPlan = plan.writer.owner && isClientSide;
+  const isSearching = !isClientSide || isPending;
+  const isAccessible = isMyPlan || plan.public;
+  const isEditable = isMyPlan && isSeason;
 
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClientSide(true);
-    return () => {
-      setIsClientSide(false);
-    };
   }, []);
 
   useEffect(() => {
@@ -41,8 +36,7 @@ export default function usePlanPage(planId: string) {
     };
   }, [setIsMyPlanStore, isMyPlan]);
 
-  const handleModalClickYes = () => {
-    setIsDeletePlanModalOpen(false);
+  const handleDeletePlan = () => {
     deletePlanAPI(parseInt(planId, 10));
     router.push('/home');
   };
@@ -51,43 +45,15 @@ export default function usePlanPage(planId: string) {
     ajajaToast.success('링크가 복사되었습니다.');
   };
 
-  const handleModalClickNo = () => {
-    setIsDeletePlanModalOpen(false);
-  };
-  const handleOpenDeleteModal = () => {
-    setIsDeletePlanModalOpen(true);
-  };
-  const createPageContent = () => {
-    if (isClientSide) {
-      if (isMyPlan || plan.public) {
-        return (
-          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
-            {isMyPlan && isSeason && (
-              <div className="plan__header--buttons">
-                <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                <span onClick={handleOpenDeleteModal}>삭제</span>
-              </div>
-            )}
-          </ReadOnlyPlan>
-        );
-      } else {
-        return <NotPublic />;
-      }
-    } else {
-      return <SearchingPlan />;
-    }
-  };
-
-  const pageContent = createPageContent();
   return {
+    plan,
     planId,
+    isSearching,
+    isAccessible,
+    isEditable,
     isMyPlan,
     currentURL,
-    isDeletePlanModalOpen,
-    pageContent,
     handleCopyLink,
-    handleModalClickNo,
-    handleModalClickYes,
-    handleOpenDeleteModal,
+    handleDeletePlan,
   };
 }

@@ -1,0 +1,67 @@
+.tooltip-button {
+  &__main {
+    overflow: visible;
+    position: relative;
+  }
+
+  &__trigger {
+    background-color: transparent;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    gap: 0.75rem;
+    position: absolute;
+    transition: all 0.3s;
+    text-wrap: nowrap;
+
+    &__item {
+      background-color: transparent;
+      transition: all 0.2s;
+    }
+    &.position-top {
+      bottom: 140%;
+    }
+
+    &.position-top &__item {
+      &.close {
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden;
+      }
+      &.open {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    &.position-bottom {
+      top: 125%;
+    }
+
+    &.position-bottom &__item {
+      &.close {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+      }
+      &.open {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    //순차적으로 나타나고 사라지는 애니메이션을 위한 delay
+    $n: 5;
+
+    @for $i from 1 through $n {
+      &__item:nth-child(#{$i}) {
+        transition-delay: calc(0.1s * $i);
+      }
+    }
+  }
+  &__list.close {
+    visibility: hidden;
+  }
+}
