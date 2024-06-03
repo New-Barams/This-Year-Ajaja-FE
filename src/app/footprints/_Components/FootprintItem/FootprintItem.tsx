@@ -1,4 +1,5 @@
 import { AjajaButton, Tag } from '@/components';
+import { changeCreatedAtToDate } from '@/utils';
 import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
@@ -17,6 +18,7 @@ type FootPrintIconMapType = {
   [key: number]: string;
 };
 
+// TODO: 임시로 정의
 const FOOTPRINT_ICON_MAP: FootPrintIconMapType = {
   0: '🤗',
   1: '🗽',
@@ -47,7 +49,7 @@ export default function FootprintItem({
   return (
     <li key={id}>
       <Link
-        href={`/발자취단건조회/${id}`}
+        href={`/footprint/${id}`}
         className={classNames(
           'footprint-item',
           'border-origin-secondary',
@@ -62,7 +64,7 @@ export default function FootprintItem({
             'font-size-xs',
             'color-origin-text-300',
           )}>
-          {`${createdAt} 작성`}
+          {`${changeCreatedAtToDate(createdAt)} 작성`}
         </div>
         <AjajaButton ajajaCount={ajajas} isFilled={true} disabled />
         <div className={classNames('footprint-item__tags')}>

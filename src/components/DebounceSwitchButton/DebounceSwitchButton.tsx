@@ -44,7 +44,7 @@ export default function DebounceSwitchButton({
 
   const submitIfReallyChanged = () => {
     if (isOn !== originalIsOn) {
-      submitToggleAPI();
+      submitToggleAPI(); // TODO: 여기서 만약 실패하면 아래 isOn은 바뀌면 안되는 거 아닌가?
       setOriginalIsOn(isOn);
     }
   };

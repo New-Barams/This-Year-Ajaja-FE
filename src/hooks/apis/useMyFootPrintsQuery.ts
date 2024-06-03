@@ -5,7 +5,7 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { GetAllPlansRequestQuery } from '@/types/apis/plan/GetAllPlans';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-// TODO: 수정 필요
+// TODO: 계획 전체조회 API -> 발자취 전체 조회 API로 수정 필요
 export const useMyFootPrintsQuery = (query: GetAllPlansRequestQuery) => {
   const {
     data,
@@ -38,7 +38,7 @@ export const useMyFootPrintsQuery = (query: GetAllPlansRequestQuery) => {
         return undefined;
       }
 
-      const lastItem = lastPage[lastPage.length - 1]; // 가장 최근 받아온 3개 data 중 마지막 ite
+      const lastItem = lastPage[lastPage.length - 1]; // 가장 최근 받아온 3개 data 중 마지막 item
       return query.sort === 'ajaja'
         ? { start: lastItem.id, ajaja: lastItem.ajajas } // 인기순이면 start, ajaja 모두 params에 넣어주기 위해
         : { start: lastItem.id }; // 인기순이면 start를 params에 넣어주기 위해

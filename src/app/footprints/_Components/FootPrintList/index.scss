@@ -1,6 +1,19 @@
-.footprint-list{
+.footprint-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   overflow-y: scroll;
+
+  &__loading-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__end {
+    &:before {
+      content: '';
+      display: block;
+      height: 12px;
+    }
+  }
 }
