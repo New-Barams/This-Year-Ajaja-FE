@@ -17,9 +17,7 @@ export default function useOauthPage() {
           const { data: tokens } = await postLogin(code);
           setCookie('auth', tokens, { maxAge: COOKIE_MAX_AGE });
           const previousPage = window.sessionStorage.getItem('prev');
-          previousPage
-            ? window.location.replace(previousPage)
-            : window.location.replace('/home');
+          previousPage ? router.replace(previousPage) : router.replace('/home');
         } catch (error) {
           alert('로그인에 실패했습니다. 잠시 후 시도해주세요');
           router.replace('/login');
@@ -29,7 +27,7 @@ export default function useOauthPage() {
       })();
     } else if (way === 'logout') {
       deleteCookie('auth');
-      window.location.replace('/login');
+      router.replace('/login');
     } else {
       router.replace('/');
     }

@@ -9,5 +9,5 @@ export const useGetUserInformationQuery = () => {
     staleTime: Infinity,
   });
 
-  return { userInformation: data!.data.data, isError, error, isFetching };
+  return { userInformation: data!.data, isError, error, isFetching };
 };

@@ -3,7 +3,7 @@ import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { useWritablePlan } from '@/hooks/useWritablePlan';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function usePlanEditPage(planId: string) {
   const router = useRouter();
@@ -27,7 +27,6 @@ export default function usePlanEditPage(planId: string) {
     handleRemoveTag,
     handleChangeIconNumber,
   } = useWritablePlan(planData);
-  const [isSelectIconModalOpen, setIsSelectIconModalOpen] = useState(false);
 
   const handleEditPlan = () => {
     editPlan(
@@ -46,10 +45,8 @@ export default function usePlanEditPage(planId: string) {
   return {
     planId,
     nextTextAreaRef,
-    isSelectIconModalOpen,
     planContent,
     planData,
-    setIsSelectIconModalOpen,
     handleAddTag,
     handleChangeCanAjaja,
     handleChangeDescription,
