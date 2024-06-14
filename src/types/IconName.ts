@@ -37,4 +37,5 @@ export type IconName =
   | 'HELP'
   | 'ARROW_RIGHT'
   | 'CANCEL'
+  | 'SEARCH'
   | 'SHARE';

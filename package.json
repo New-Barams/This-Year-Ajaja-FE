@@ -23,6 +23,7 @@
     "react-form-stepper": "^2.0.3",
     "react-hot-toast": "^2.4.1",
     "react-infinite-scroller": "^1.2.6",
+    "react-intersection-observer": "^9.8.2",
     "react-spinners": "^0.13.8",
     "recoil": "^0.7.7"
   },

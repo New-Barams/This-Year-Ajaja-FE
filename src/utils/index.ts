@@ -1,4 +1,5 @@
 export { alertAndLogin } from '@/utils/alertAndLogin';
+export { changeCreatedAtToDate } from '@/utils/changeCreatedAtToDate';
 export { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 export { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 export { checkEmailValidation } from '@/utils/checkEmailValidation';
